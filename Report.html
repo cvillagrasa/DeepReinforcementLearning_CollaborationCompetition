@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Deep Reinforcement Learning Navigation Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="main">
+
+    <h1>Deep Reinforcement Learning Nanodegree</h1>
+
+    <p>
+        This repository contains my <b>Deep Reinforcement Learning</b> solution to one of
+        the stated problems within the scope of the following Nanodegree:
+    </p>
+
+    <a href="https://www.udacity.com/course/deep-reinforcement-learning-nanodegree--nd893">
+        Deep Reinforcement Learning Nanodegree Program - Become a Deep Reinforcement Learning Expert
+    </a>
+
+    <p>
+        Deep Reinforcement Learning is a thriving field in AI with lots of practical
+        applications. It consists of the use of Deep Learning techniques to be able to
+        solve a given task by taking actions in an environment, in order to achieve a
+        certain goal. This is not only useful to train an AI agent so as to play videogames,
+        but also to set up and solve any environment related to any domain. In particular,
+        as a Civil Engineer, my main area of interest is the <b>AEC field</b> (Architecture,
+        Engineering & Construction).
+    </p>
+
+    <h2>Collaboration and Competition Project</h2>
+
+    <p>
+        This project consists of a Collaboration and Competition problem, which is contained within the Policy
+        Based Methods chapter and is solved by means of a Multi-Agent Deep Deterministic Policy Gradient algorithm
+        (MA-DDPG).
+    </p>
+
+    <h3>Environment description</h3>
+
+    <p>
+        The environment used for this project is based on the <i>Unity ML-Agents</i> Tennis
+        environment from 2018. There is no clear equivalent in 2022, but the closest would be the
+        <a href="https://github.com/Unity-Technologies/ml-agents/blob/main/docs/Learning-Environment-Examples.md#soccer-twos">
+            Soccer Environment.
+        </a>
+    </p>
+
+    <p>
+        It consists of a tennis playground, in which there is a racket-shaped agent at each side of the net. The agents can
+        move around in order to be able to bounce the ball over the net to the other side of the playground. The goal for the
+        agents is to keep the ball in play for as many time steps as possible.
+    </p>
+
+    <img src="https://user-images.githubusercontent.com/10624937/42135623-e770e354-7d12-11e8-998d-29fc74429ca2.gif" alt="Banana environment"
+         width="600em" class="center">
+    <br/>
+
+    <p>
+        Its characteristics are as follows:
+    </p>
+
+    <ul>
+        <li>
+            The state space consists of 8 variables corresponding to the position and velocity of the ball and racket.
+        </li>
+        <li>
+            The action space consists of 2 continuous actions, corresponding to movement perpendicular to the net, and
+            jumping.
+        </li>
+        <li>
+            An agent receives a reward of +0.1 when it is able to hit the ball over the net. On the contrary, if it
+            lets the ball touch the ground or hit it out of bounds, it receives a reward of -0.01.
+        </li>
+        <li>
+            The environment is considered solved when the average score over 100 episodes is at least 0.5. In turn,
+            the score of each episode corresponds to the maximum between the two agents.
+        </li>
+    </ul>
+
+    <h3>Solution</h3>
+
+    The solution to the Tennis environment provided within this repository is described as follows.
+
+    <h4>Algorithm overview</h4>
+    <p>
+        As introduced above, the environment is solved by means of a Multi Agent Deep Deterministic Policy Gradient
+        algorithm, or MA-DDPG. The vanilla DDPG algorithm, as firstly
+        <a href="https://doi.org/10.48550/arXiv.1509.02971">introduced by the DeepMind team in 2015</a>,
+        accomplished to transfer the ideas underlying the success of Deep Q-Learning to the continuous action domain.
+        On top of that, the multi-agent version was
+        <a href="https://doi.org/10.48550/arXiv.1706.02275">introduced by OpenAI in 2017</a>
+        and extended the concept to a multi-agent scenario. In particular, the memory replay is shared among all the
+        agents in order to benefit from the aggregate experiences.
+    </p>
+
+    <p>
+        Some minor tweaks from the original DDPG paper taken here into account have been the consideration of a
+        typical gaussian noise for action selection, instead of the originally proposed Ornstein–Uhlenbeck process,
+        as well as a traditional Kaiming He initialization for the middle layer weights of the neural networks.
+    </p>
+
+    <h4>Repository description</h4>
+
+    <p>
+        The code is structured with the <i>PyTorch</i> Deep Neural Networks on <i>model.py</i>, the
+        agent logics on <i>agent.py</i> and the environment setup on <i>environment.py</i>. All of it
+        is structured pythonically, in an OOP fashion, and is often self-explanatory.
+        Lastly, the Jupyter Notebook <i>Tennis.ipynb</i> builds up an interface to train agents
+        according to the multi-agent version of the Deep Deterministic Policy Gradient algorithm, as well as to
+        visualize the corresponding results with <i>pandas DataFrames</i> and <i>Seaborn</i> plots.
+    </p>
+
+    <h4>Description of the solution</h4>
+    <p>
+        This was undoubtedly a challenging environment. A huge amount of testing was done without the agents being
+        able to learn. Finally, the strategy which got the best results was to set up sensible hyperparameters and
+        just run a very long training. Below, it is shown the training evolution for 15000 episodes:
+    </p>
+
+    <img src="./img/maddpg.png" alt="MA-DDPG" width="700em" class="center">
+
+    <p>
+        As it can be seen, there is an incredibly long first stage, up to the surroundings of 8000 episodes, in which
+        the agents barely learn something at all. Then suddenly, the actual learning begins to happen and the
+        environment is quickly resolved, achieving more than 0.5 points on the average of the last hundred episodes (
+        which first occurs at the end of episode nº 9222). From that moment onwards, there are intervals in which the
+        agents get momentarily worse, and there are peaks in which the performance even reaches 1.5 points. All in all,
+        the learning is not extremely stable, but the shared Memory Replay Buffer always helps the agents return to the
+        correct learning path, and the overall evolution is uptrend.
+    </p>
+
+    <h4>Episodes needed to solve the environment</h4>
+
+    <p>
+        The following chart shows the number of episodes which was needed to solve the environment:
+    </p>
+
+    <img src="./img/comparison.png" alt="comparison" width="150em" class="center">
+
+    <p>
+        As it can be seen, the environment is solved within 9222 episodes.
+    </p>
+
+    <h3>Ideas for a next step</h3>
+
+    <p>
+        For sure, some things can be done in order to converge before. In order to improve future performance,
+        the following elements could be explored:
+    </p>
+
+    <ul>
+        <li>Hyperparameter tweaking (learning rates, batch size, amount of noise, delays, etc.). Although it
+        is noted that a lot of tweaking has already been done, but this is a challenging environment.</li>
+        <li>Experiment with different architectures for the neural networks. As in the previous case, some tweaking
+            has already been done, but it always can happen that the ideal combination was not among the tried ones.
+        </li>
+        <li>Perform a training run with some performant version of Prioritized Experience Replay, such as
+            Hindsight Experience Replay (HER). Vanilla Prioritized Experience Replay is already implemented in the
+            current code, but for some reason, experimenting with it did not yield great results. In turn, HER should
+            be able to better enhance performance in an challenging environment with sparse rewards such as this one.
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
