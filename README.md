@@ -62,7 +62,7 @@ below, and placed inside the `./p3_collab-compet/` folder after unzipping it.
 At this point, *Step 3* requires to clone the current repository and place the folder at the root of the freshly 
 configured *deep-reinforcement-learning*. From there, it only remains to change the environment path(s) to match the 
 file(s) downloaded in *Step 2*. This path can be changed at 
-[the following line of environment.py](https://github.com/cvillagrasa/DeepReinforcementLearning_Navigation/blob/c3b8224bd47d720f740136269a0f198f5f20c1f9/environment.py#L12).
+[the following line of environment.py](https://github.com/cvillagrasa/DeepReinforcementLearning_CollaborationCompetition/blob/b801b649c7949c6d256f15d18b9c6435f62dac56/environment.py#L14).
 
 Lastly, *Step 4* consists of installing Seaborn within the Python environment by running `pip install seaborn`.
 
@@ -72,7 +72,7 @@ be executed.
 ### Solution
 
 My solution to the posed problem can be found in the 
-[Solution Report](https://htmlpreview.github.io/?https://github.com/cvillagrasa/DeepReinforcementLearning_Navigation/blob/master/Report.html), 
+[Solution Report](https://htmlpreview.github.io/?https://github.com/cvillagrasa/DeepReinforcementLearning_CollaborationCompetition/blob/master/Report.html), 
 as well as in the code included 
 within this repository.
 
